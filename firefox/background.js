@@ -16,8 +16,18 @@ function generateShadowmapLinkFromGoogleMaps(tab) {
     const url = tab.url
     const parameters = url.split(',')
     const lngLat = /\/\@(.*),(.*),/.exec(url);
-    const lat = lngLat[1]
-    const lng = lngLat[2]
+   
+
+    let lat = lngLat[1]
+    let lng = lngLat[2]
+
+    // catch google street view url by checking if lngLat[1] has a comma in it
+    if(lngLat[1] && lngLat[1].includes(",")) {
+        const streetViewLngLat = lngLat[1].split(",")
+
+        lat = streetViewLngLat[0]
+        lng = streetViewLngLat[1]
+    }
 
     var zoomLevel = 15
 
